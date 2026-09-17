@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar: The Last Airbender Fan Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS VARIABLES & RESETS --- */
+        :root {
+            --water-color: #0077be;
+            --earth-color: #4a7c59;
+            --fire-color: #c0392b;
+            --air-color: #f39c12;
+            --bg-dark: #12151c;
+            --card-bg: #1c2230;
+            --text-light: #f5f5f7;
+            --gold-accent: #d4af37;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(rgba(18, 21, 28, 0.7), rgba(18, 21, 28, 1)), 
+                        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            border-bottom: 3px solid var(--gold-accent);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--gold-accent);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .btn-scroll {
+            padding: 12px 30px;
+            background: transparent;
+            color: var(--gold-accent);
+            border: 2px solid var(--gold-accent);
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .btn-scroll:hover {
+            background: var(--gold-accent);
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+        }
+
+        /* --- CONTAINER --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--gold-accent);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: var(--gold-accent);
+            margin: 10px auto 0;
+        }
+
+        /* --- FOUR ELEMENTS INTERACTIVE TABS --- */
+        .elements-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 25px;
+            border: none;
+            background: var(--card-bg);
+            color: var(--text-light);
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+
+        .tab-btn.water:hover, .tab-btn.water.active { background: var(--water-color); }
+        .tab-btn.earth:hover, .tab-btn.earth.active { background: var(--earth-color); }
+        .tab-btn.fire:hover, .tab-btn.fire.active { background: var(--fire-color); }
+        .tab-btn.air:hover, .tab-btn.air.active { background: var(--air-color); }
+
+        .element-content {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 5px solid var(--gold-accent);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .element-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- CHARACTER CARDS --- */
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-body h3 {
+            color: var(--gold-accent);
+            margin-bottom: 5px;
+        }
+
+        .card-body span {
+            font-size: 0.85rem;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        /* --- QUOTES SECTION --- */
+        .quote-box {
+            background: linear-gradient(135deg, #1c2230, #252e42);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            font-style: italic;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .quote-box p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .quote-box footer {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-accent);
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        /* --- FOOTER --- */
+        footer.site-footer {
+            text-align: center;
+            padding: 30px;
+            background: #0a0c10;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <h1>Avatar: The Last Airbender</h1>
+        <p>"Water. Earth. Fire. Air. Long ago, the four nations lived together in harmony..."</p>
+        <a href="#elements" class="btn-scroll">Explore The World</a>
+    </header>
+
+    <div class="container">
+        <!-- ABOUT SECTION -->
+        <section id="about" style="margin-bottom: 60px;">
+            <h2 class="section-title">The Legend</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto; color: #ccc;">
+                Set in a world where human civilization is divided into four nations—named after the four classical elements—the story follows Aang, the last surviving Airbender and the Avatar, destined to master all four elements and bring peace to a world torn apart by the Fire Nation.
+            </p>
+        </section>
+
+        <!-- INTERACTIVE ELEMENTS SECTION -->
+        <section id="elements" style="margin-bottom: 60px;">
+            <h2 class="section-title">The Four Elements</h2>
+            
+            <div class="elements-tabs">
+                <button class="tab-btn water active" onclick="showElement('water')">Water</button>
+                <button class="tab-btn earth" onclick="showElement('earth')">Earth</button>
+                <button class="tab-btn fire" onclick="showElement('fire')">Fire</button>
+                <button class="tab-btn air" onclick="showElement('air')">Air</button>
+            </div>
+
+            <div id="water" class="element-content active" style="border-color: var(--water-color);">
+                <h3 style="color: var(--water-color);">Waterbending</h3>
+                <p>Based on Tai Chi, Waterbending controls fluid motion and adaptability. Waterbenders can manipulate water in all its forms—liquid, ice, and steam. Its primary philosophy centers around turning an opponent's energy back against them.</p>
+            </div>
+
+            <div id="earth" class="element-content" style="border-color: var(--earth-color);">
+                <h3 style="color: var(--earth-color);">Earthbending</h3>
+                <p>Based on Hung Gar Kung Fu, Earthbending requires a firm stance and unyielding strength. Earthbenders manipulate rock and soil. Advanced benders can even master sub-skills like Metalbending and Sandbending.</p>
+            </div>
+
+            <div id="fire" class="element-content" style="border-color: var(--fire-color);">
+                <h3 style="color: var(--fire-color);">Firebending</h3>
+                <p>Based on Northern Shaolin Kung Fu, Firebending is aggressive, direct, and driven by passion and breath. Unlike other bending arts, Firebenders can create their element out of nothing. Masters can also channel Lightning.</p>
+            </div>
+
+            <div id="air" class="element-content" style="border-color: var(--air-color);">
+                <h3 style="color: var(--air-color);">Airbending</h3>
+                <p>Based on Ba Gua Kung Fu, Airbending emphasizes evasive maneuvers, mobility, and freedom. Airbenders seek peace and balance, preferring to avoid conflict rather than meet it head-on. They use gliders to ride wind currents.</p>
+            </div>
+        </section>
+
+        <!-- CHARACTERS SECTION -->
+        <section id="characters" style="margin-bottom: 60px;">
+            <h2 class="section-title">Team Avatar</h2>
+            <div class="character-grid">
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Aang</h3>
+                        <span>The Avatar</span>
+                        <p>A fun-loving, 112-year-old Airbender who must master all four elements to save the world.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Katara</h3>
+                        <span>Waterbending Master</span>
+                        <p>A caring and fierce waterbender from the Southern Water Tribe who acts as the team's heart.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Sokka</h3>
+                        <span>Strategist & Swordsman</span>
+                        <p>Katara's brother. He lacks bending powers, but makes up for it with high intellect, sarcasm, and a boomerang.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Toph Beifong</h3>
+                        <span>Earthbending Prodigy</span>
+                        <p>A blind Earthbender who discovered Metalbending. She sees the world purely through vibrations.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Zuko</h3>
+                        <span>Fire Prince</span>
+                        <p>An exiled prince obsessed with capturing the Avatar to restore his honor, before finding his true path.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Uncle Iroh</h3>
+                        <span>Grand Lotus</span>
+                        <p>A wise, tea-loving Fire Nation general who guides Zuko with love, patience, and profound wisdom.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- WISDOM / QUOTES SECTION -->
+        <section id="quotes">
+            <h2 class="section-title">Wisdom of Uncle Iroh</h2>
+            <div class="quote-box">
+                <p>"Life happens wherever you are, whether you make it or not."</p>
+                <footer>— Uncle Iroh</footer>
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <p>Fan page created for fans of <em>Avatar: The Last Airbender</em>.</p>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT -->
+    <script>
+        function showElement(elementId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.element-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active status from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected content and highlight active button
+            document.getElementById(elementId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
